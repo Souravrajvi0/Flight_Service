@@ -54,6 +54,7 @@ async function destroyAirplane(id) {
         }
         return response
     }catch(error){
+        console.log(error);
            if (error instanceof AppError) {
             throw error;
         }
