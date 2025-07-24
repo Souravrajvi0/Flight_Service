@@ -19,7 +19,7 @@ class CrudRepository{
                 where : {
                     id : data
                 }
-            });
+            });    
         return response;
     }
 
@@ -38,7 +38,7 @@ class CrudRepository{
     }
 
 
-       async update(id,data){  // data should be object here 
+    async update(id,data){  // data should be object here 
         const response = await this.model.update(data,{
                 where : {
                  id : id
