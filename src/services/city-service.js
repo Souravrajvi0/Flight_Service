@@ -28,7 +28,7 @@ async function deleteCity(id){
     try {
       const response = await cityRepository.destroy(id);
         if(response == 0){
-            throw new AppError ("The City id Doesn't exist",StatusCodes.NOT_FOUND);
+            throw new AppError ("The City id Doesn't exist",StatusCodes.NOT_FOUND)
         }
       return response;
     } catch (error) {
