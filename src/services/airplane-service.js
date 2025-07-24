@@ -42,14 +42,30 @@ async function getAirplane(id) {
         if(error.statusCode ==  StatusCodes.NOT_FOUND){
         throw new AppError("The Airplane you requested doesn't exist",StatusCodes.NOT_FOUND);
         }
-       throw new AppError ("Cannot find the Plane",StatusCodes.BAD_REQUEST);
+       throw new AppError ("Cannot fetch the data of the plane",StatusCodes.BAD_REQUEST);
     }  
 }
 
+async function destroyAirplane(id) {
+    try{
+        const response = await airplaneRepository.destroy(id);
+        if(response == 0){
+            throw new AppError("This Plane Doesn't exist",StatusCodes.NOT_FOUND)
+        }
+        return response
+    }catch(error){
+           if (error instanceof AppError) {
+            throw error;
+        }
+         throw new AppError ("Cannot fetch the data of the plane",StatusCodes.BAD_REQUEST);
+    }
+    
+}
 
 
 module.exports = {
     createAirplane ,
     getAirplanes,
-    getAirplane
+    getAirplane,
+    destroyAirplane
 }
