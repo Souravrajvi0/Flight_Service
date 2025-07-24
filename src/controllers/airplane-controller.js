@@ -2,6 +2,7 @@ const {AirplaneService} = require("../services")
 const {StatusCodes} = require('http-status-codes')
 const { error } = require("winston")
 const{SuccessResponse,ErrorResponse}= require('../utils/common')
+const { AirplaneRepository } = require("../repositories")
 async function createAirplane(req,res) {
     try {
         const airplane = await AirplaneService.createAirplane({
@@ -40,9 +41,28 @@ async function getAirplanes(req,res) {
     }
 }
 
+async function getAirplane(req,res) {
+    try{
+        const airplane = await AirplaneService.getAirplane(req.params.id);
+        console.log(airplane);
+        SuccessResponse.data = airplane;
+        return res
+                .status(StatusCodes.ACCEPTED)
+                .json(SuccessResponse)
+
+    }catch(error){
+        ErrorResponse.error = error
+        return res
+                 .status(error.statusCode)
+                 .json(ErrorResponse)
+    }
+    
+}
+
 
 
 module.exports = {
     createAirplane,
-    getAirplanes
+    getAirplanes,
+    getAirplane
 }
