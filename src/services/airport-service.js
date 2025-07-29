@@ -34,6 +34,7 @@ async function getAirports() {
 
 async function getAirport(id) {
     try{
+        console.log('inside get airport service')
         const airport = await airportRepository.get(id);
         return airport;
     }catch(error){
