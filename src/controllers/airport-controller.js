@@ -1,22 +1,24 @@
-const {AirplaneService} = require("../services")
+const { AirportService} = require("../services")
 const {StatusCodes} = require('http-status-codes')
 const { error } = require("winston")
 const{SuccessResponse,ErrorResponse}= require('../utils/common')
-async function createAirplane(req,res) {
+async function createAirport(req,res) {
     try {
-        const airplane = await AirplaneService.createAirplane({
-        modelNumber : req.body.modelNumber,
-        capacity : req.body.capacity
+        const airport = await AirportService.createAirport({
+         name : req.body.name,
+         code : req.body.code,
+         address : req.body.address,
+         cityId : req.body.cityId
         })
-        SuccessResponse.data = airplane;
+        SuccessResponse.data = airport;
      return res
               .status(StatusCodes.CREATED)
               .json(SuccessResponse)
         
     } catch (error) {
-        ErrorResponse.error = error;
-        console.log("Caught error:", error);
-
+        console.log('ERROR BOX OF CONTROLLER');
+        console.log(error);
+        ErrorResponse.error = error
         return res
                   .status(error.statusCode)
                   .json(ErrorResponse)
@@ -25,10 +27,10 @@ async function createAirplane(req,res) {
 }
 
 
-async function getAirplanes(req,res) {
+async function getAirports(req,res) {
     try{
-        const airplanes = await AirplaneService.getAirplanes();
-        SuccessResponse.data = airplanes;
+        const airports = await AirportService.getAirports();
+        SuccessResponse.data = airports;
        
          return res
               .status(StatusCodes.OK)
@@ -42,11 +44,10 @@ async function getAirplanes(req,res) {
     }
 }
 
-async function getAirplane(req,res) {
+async function getAirport(req,res) {
     try{
-        const airplane = await AirplaneService.getAirplane(req.params.id);
-        console.log(airplane);
-        SuccessResponse.data = airplane;
+        const airport = await AirportService.getAirport(req.params.id);
+        SuccessResponse.data = airport;
         return res
                 .status(StatusCodes.ACCEPTED)
                 .json(SuccessResponse)
@@ -60,17 +61,16 @@ async function getAirplane(req,res) {
     
 }
 
-async function destroyAirplane(req,res) {
+async function destroyAirport(req,res) {
     try{
-        const airplane = await AirplaneService.destroyAirplane(req.params.id);
-        SuccessResponse.data = airplane;
+        const airport = await AirportService.destroyAirport(req.params.id);
+        SuccessResponse.data = airport;
         return res
                 .status(StatusCodes.ACCEPTED)
                 .json(SuccessResponse)
 
     }catch(error){
-        ErrorResponse.error = error;
-
+        ErrorResponse.error = error
         return res
                  .status(error.statusCode)
                  .json(ErrorResponse)
@@ -78,11 +78,11 @@ async function destroyAirplane(req,res) {
 }
 
 
-async function updateAirplane(req,res){
+async function updateAirport(req,res){
     try {
         const id = req.params.id;
         const data = req.body;
-        const response =  await AirplaneService.updateAirplane(id,data);
+        const response =  await AirportService.updateAirport(id,data);
         SuccessResponse.data = response
         return res
                  .status(StatusCodes.ACCEPTED)
@@ -102,9 +102,9 @@ async function updateAirplane(req,res){
 
 
 module.exports = {
-    createAirplane,
-    getAirplanes,
-    getAirplane,
-    destroyAirplane,
-    updateAirplane
+    createAirport,
+    getAirport,
+    getAirports,
+    destroyAirport,
+    updateAirport
 }
