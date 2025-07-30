@@ -9,7 +9,7 @@ router.post("/",
     FlightController.createFlight
     );
 
-// router.get("/",AirplaneController.getAirplanes);
+ router.get("/",FlightController.getAllFlights);
 // router.get('/:id',AirplaneController.getAirplane);
 // router.delete('/:id',AirplaneController.destroyAirplane);
 // router.put('/:id',AirplaneController.updateAirplane);
