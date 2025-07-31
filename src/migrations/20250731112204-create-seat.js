@@ -5,7 +5,7 @@ const {ENUMS}  = require('../utils/common')
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Seats', {
+    await queryInterface.createTable('Seat', {
       id: {
         allowNull: false,
         autoIncrement: true,
